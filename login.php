@@ -7,6 +7,7 @@
         $password = $_POST['password'];
         $_SESSION['user_type'] = authenticateUser($email, $password, $_SESSION['user']);
         if ($_SESSION['user_type'] !== false) {
+            $_SESSION['email']=$email; //to be able to get user information
             header("Location: index.php");
         } else {
             header("Location: login.php?error=1");
