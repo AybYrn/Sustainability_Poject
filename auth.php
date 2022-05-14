@@ -2,7 +2,9 @@
 if(count(get_included_files()) == ((version_compare(PHP_VERSION, '5.0.0', '>='))?1:0)) {
     exit('Restricted Access');
 }
-
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
 try {
     $db = new PDO("mysql:host=localhost;dbname=256proj;port=3306;charset=utf8mb4", "root", "");
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

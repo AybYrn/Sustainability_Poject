@@ -1,3 +1,9 @@
+<?php
+session_start();
+require 'auth.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,13 +12,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="style.css">
-    
     <title>Project</title>
 </head>
 <body>
         <ul>
             <li>
-                <a href="#">
+                <a href="index.php">
                     <div class="symbol"><i class="fas fa-house-chimney"></i></div>
                     
                     
@@ -21,7 +26,7 @@
 
             </li>
             <li>
-                <a href="#">
+                <a href="product.php">
                     <div class="symbol"><i class="fa-solid fa-shop"></i></div>
                   
                     
@@ -30,7 +35,7 @@
 
             </li>
             <li>
-                <a href="#">
+                <a href="cart/cart.php">
                     <div class="symbol"><i class="fas fa-cart-shopping"></i></div>
                     
                     
@@ -39,7 +44,7 @@
 
             </li>
             <li>
-                <a href="#">
+                <a href="profile/profile.php">
                     <div class="symbol"><i class="fas fa-address-card"></i></div>
                     <div class="name"><span data-val="Profile">Profile</span></div>
                 </a>

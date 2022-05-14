@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 $errors = [
     400 => 'Bad Request',
     401 => 'Unauthorized',
@@ -37,5 +37,6 @@ if (isset($errors[$code])) {
     <h1>Woops...</h1>
     <h2>An error seems to have occurred!</h2>
     <p>ERROR: <?= $message ?></p>
+    <p><?= $_SESSION['message'] ?? "" ?></p>
 </body>
 </html>
