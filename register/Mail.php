@@ -17,8 +17,8 @@ class Mail {
         $mail->isSMTP();                                            
         $mail->Host       = 'asmtp.bilkent.edu.tr';                     
         $mail->SMTPAuth   = true;                                   
-        $mail->Username   = 'emre.kolcu@ug.bilkent.edu.tr' ;                     
-        $mail->Password   = 'AybHus1234' ;                     
+        $mail->Username   = 'email@email.com' ;                     
+        $mail->Password   = 'password' ;                     
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = 587; 
     
