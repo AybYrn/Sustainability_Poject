@@ -61,11 +61,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main</title>
+    <style>
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css');
+    </style>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="menuStyle.css">
 </head>
 <body>
+    <?php require 'menu_insert.php' ?>
     <header>
         <form action="" method="get">
             <div class="q">
@@ -73,7 +79,7 @@
             </div>
         </form>
         <div class="btn">
-        <a href="cart/cart.php">
+        <a href="cart.php">
             Shopping Cart
         </a>    
         </div>

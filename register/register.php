@@ -21,7 +21,12 @@
             $email = filter_var($_POST["email"], FILTER_SANITIZE_EMAIL);
             $password_confirmation = filter_var($_POST["password_confirmation"], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $password = filter_var($_POST["password"], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $userType = filter_var($_POST["userType"], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            if(isset($_POST["userType"])){
+                $userType = filter_var($_POST["userType"], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            }else{
+                $userType = null;
+                $error["user_type"] = "you did not select a user type";
+            }
             $name = filter_var($_POST["name"], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $city = filter_var($_POST["city"], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $address = filter_var($_POST["address"], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -75,15 +80,137 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abel&display=swap">
     <title>Register</title>
+    <link rel="stylesheet" href="style.css">
     <style>
         * {
-            box-sizing: border-box;
+            font-family: Abel;
+            background-color: #f5f5f5;
+        }
+        header{
+            text-align: center;
+            color: orange;
+        }
+        #main{
+            display: flex;
+            width: 500px;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        form{
+            width: 200px;
             text-align: center;
         }
-        div#main {
+        input, select{
+            font-size: 20px;
             display: flex;
-            justify-content: space-around;
+        }
+        
+        table{
+            font-size: 20px;
+            margin: 30px auto;
+            color: red;
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        input{
+            margin-top: 10px;
+            padding: 5px;
+        }
+
+        button {
+        --primary-color: #645bff;
+        --secondary-color: #fff;
+        --hover-color: #111;
+        --arrow-width: 10px;
+        --arrow-stroke: 2px;
+        box-sizing: border-box;
+        border: 0;
+        border-radius: 20px;
+        color: var(--secondary-color);
+        padding: 1em 1.8em;
+        background: var(--primary-color);
+        display: flex;
+        transition: 0.2s background;
+        align-items: center;
+        gap: 0.6em;
+        font-weight: bold;
+        margin-top: 10px;
+        }
+
+        button .arrow-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 10px;
+
+        }
+
+        button .arrow {
+        margin-top: 1px;
+        background: var(--primary-color);
+        height: var(--arrow-stroke);
+        position: relative;
+        transition: 0.2s;
+        }
+
+        button .arrow::before {
+        content: "";
+        box-sizing: border-box;
+        position: absolute;
+        border: solid var(--secondary-color);
+        border-width: 0 var(--arrow-stroke) var(--arrow-stroke) 0;
+        display: inline-block;
+        top: -3px;
+        right: 3px;
+        transition: 0.2s;
+        padding: 3px;
+        transform: rotate(-45deg);
+        }
+
+        button:hover {
+        background-color: var(--hover-color);
+        }
+
+        button:hover .arrow {
+        background: var(--secondary-color);
+        }
+
+        button:hover .arrow:before {
+        right: 0;
+        }
+        input {
+        line-height: 28px;
+        border: 2px solid transparent;
+        border-bottom-color: #777;
+        padding: .2rem 0;
+        outline: none;
+        background-color: transparent;
+        color: #0d0c22;
+        transition: .3s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+
+        input:focus, input:hover {
+        outline: none;
+        padding: .2rem 1rem;
+        border-radius: 1rem;
+        border-color: #7a9cc6;
+        }
+
+        input::placeholder {
+        color: #777;
+        }
+
+        input:focus::placeholder {
+        opacity: 0;
+        transition: opacity .3s;
+        }
+        select{
+            color: #60666d;
+            border: none;
+            color: blue;
         }
     </style>
 </head>
@@ -94,8 +221,9 @@
     <div id="main">
         <form action="" method="post">
             <select name="userType">
+                <option value="Select a type" disabled selected>Select a type</option>
                 <option value="market">Market</option>
-                <option value="consumer" selected>Consumer</option>
+                <option value="consumer">Consumer</option>
             </select>
             <input type="text" name="email" placeholder="E-mail" <?= isset($email) ? "value='$email'" : "" ?>>
             <input type="password" name="password" placeholder="Password" <?= isset($password) ? "value='$password'" : "" ?>>
@@ -104,7 +232,11 @@
             <input type="text" name="city" placeholder="City" <?= isset($city) ? "value='$city'" : "" ?>>
             <input type="text" name="district" placeholder="District" <?= isset($district) ? "value='$district'" : "" ?>>
             <input type="text" name="address" placeholder="Address" <?= isset($address) ? "value='$address'" : "" ?>>
-            <button type="submit">Submit</button>
+            <button type="submit">Submit 
+            <div class="arrow-wrapper">
+                <div class="arrow"></div>
+            </div>
+            </button>
         </form>
     </div>
     <?php
@@ -112,7 +244,7 @@
                 echo "<table>";
                 foreach ($error as $key => $value) {
                     ?>
-                    <tr><td><?= $key ?> =></td><td><?= $value ?></td></tr>
+                    <tr class="error"><td>*</td><td><?= $value ?>*</td></tr>
                     <?php
                 }
                 echo "</table>";

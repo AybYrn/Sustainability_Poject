@@ -41,6 +41,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <title>Login</title>
     <style>
+        body{
+            background: radial-gradient(100% 90%, white, lightgoldenrodyellow);
+        }
         h1{
             color: orange;
         }
@@ -51,12 +54,46 @@
             margin: 200px auto;
             font-size: 30px;
         }
-        button{
-            font-size: 25px;
-            cursor: pointer;
-            border-color: white;
-            background-color: white;
+
+        button {
+        padding: 0.8em 1.8em;
+        border: 2px solid #17C3B2;
+        border-radius: 20px;
+        position: relative;
+        overflow: hidden;
+        background-color: transparent;
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 15px;
+        transition: .3s;
+        z-index: 1;
+        font-family: inherit;
+        color: #17C3B2;
         }
+
+        button::before {
+        content: '';
+        width: 0;
+        height: 300%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+        background: #17C3B2;
+        transition: .5s ease;
+        display: block;
+        z-index: -1;
+        }
+
+        button:hover::before {
+        width: 105%;
+        }
+
+        button:hover {
+        color: #111;
+        }
+
         input{
             padding: 5px;
             border-radius: 10px;
@@ -74,8 +111,23 @@
         form div{
             padding-right: 20px;
         }
-        a{
-            color: black;
+        i{color: #17C3B2;}
+
+        input {
+        border: none;
+        border-radius: 15px;
+        padding: 15px;
+        background-color: #e8e8e8;
+        box-shadow: 6px 6px 12px #ffffff,
+                    -6px -6px 12px #c5c5c5;
+        font-size: medium;
+        font-weight: bold;
+        max-width: 200px;
+        }
+
+        input:focus {
+        outline-color: white;
+        place-content: "Enter your message!";
         }
     </style>
 </head>
@@ -84,14 +136,14 @@
         <h1>Login</h1>
         <form action="" method="post">
             <div>
-                <input type="text" name="email" placeholder="E-mail">
-                <input type="password" name="password" placeholder="Password">
+                <input type="text" name="email" placeholder="E-mail" >
+                <input type="password" name="password" placeholder="Password" >
             </div>
             <div>
-                <button type="submit"><i class="fa-solid fa-right-to-bracket"></i></button>
+                <button type="submit">Login</button>
             </div>
             <div>
-                <a href="register.php"><i class="fa-solid fa-user-plus"></i></a>
+                <a href="register/register.php"><i class="fa-solid fa-user-plus"></i></a>
             </div>
         </form>
         <div>

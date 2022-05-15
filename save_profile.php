@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	require '../auth.php';
+	require 'auth.php';
     if(isset($_POST['save']) && isset($_POST['name']) && isset($_POST['password_new']) && isset($_POST['password_new2']) && isset($_POST['city']) && isset($_POST['district']) && isset($_POST['address'])){
         $name = filter_var($_POST['name'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $email = $_SESSION['user']['email'];

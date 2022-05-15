@@ -75,28 +75,34 @@
         body{
             font-family: Abel;
         }
+        h1{
+            color: lightsalmon;
+            margin-top: 30px;
+            text-align: center;
+        }
         img {
             width: 150px;
             height: 150px;
         }
         table {
-            border-collapse: collapse;
-            margin: 40px auto; 
-            width: 1250px;
-            font-size: 30px;
+            font-size: 20px;
+            margin: 50px auto;
+            width: 1300px;
+            /* height: 500px; */
+            background: rgb(255, 255, 255);
+            border-radius: 0.4em;
+            box-shadow: 0.3em 0.3em 0.7em #aaaaaa;
+            transition: border 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: rgb(250, 250, 250) 0.2em solid;
         }
         tr:first-of-type{
             color: blue;
             font-weight: bold;
         }
         td, tr{
-            border-bottom: 2px solid lightgray;
             text-align: center;
-            padding: 5px;
+            padding: 1px;
 
-        }
-        h1{
-            text-align: center;
         }
         a, button{
             width: 100px;
@@ -105,10 +111,85 @@
         a:visited {
             color: lightsalmon;
         }
+        .edit{
+            display: flex;
+            justify-content: center;
+            width: 1500px;
+        }
+        .edit input {
+        font-weight: bold;
+        line-height: 28px;
+        border: 2px solid transparent;
+        border-bottom-color: #777;
+        padding: .2rem 0;
+        outline: none;
+        background-color: transparent;
+        color: #0d0c22;
+        transition: .3s cubic-bezier(0.645, 0.045, 0.355, 1);
+        padding-left:15px ;
+        }
+
+        .edit input:focus, input:hover {
+        outline: none;
+        padding: .2rem 1rem;
+        border-radius: 1rem;
+        border-color: #7a9cc6;
+        }
+
+        .edit input::placeholder {
+        color: #777;
+        }
+
+        .edit input:focus::placeholder {
+        opacity: 0;
+        transition: opacity .3s;
+        }
+
+        .edit input[type=file]::file-selector-button{
+            background-color: white;
+            border-color: white;
+            border-radius: 10px;
+        }
+        .edit input[type=file]::file-selector-button:hover{
+            outline: 1px blue;
+            border-color:  #006fff;
+            background-color: white;
+            border-radius: 10px;
+        }
+        button {
+            border-radius: 10px;
+            padding: 2px;
+            border-color: white;
+            color: white;
+            background-color:  #006fff;
+        }
+        button:hover {
+            border-color: black;
+        }
     </style>
 </head>
 <body>
     <h1>PRODUCTS</h1>
+    <?php   
+            if (isset($_GET["edit"])) {
+                $stmt = $db->prepare("select * from product where pid = ?") ;
+                $stmt->execute([filter_var($_GET["edit"], FILTER_VALIDATE_INT)]);
+                $product = $stmt->fetch(PDO::FETCH_ASSOC);
+        ?>
+        <div class="edit">
+            <form action="" method="post"  enctype="multipart/form-data">
+                <input type="text" name="title" value='<?= isset($title) ? $title : $product["title"]?>'>
+                <input type="text" name="stock" value='<?= isset($stock) ? $stock : $product["stock"]?>'>
+                <input type="text" name="normal_price" value='<?= isset($normal_price) ? $normal_price : $product["normal_price"]?>'>
+                <input type="text" name="discnt_price" value='<?= isset($discnt_price) ? $discnt_price : $product["discnt_price"]?>'>
+                <input type="date" name="expr_date" value='<?= isset($expr_date) ? $expr_date : $product["expr_date"]?>'>
+                <input type="file" name="img">
+                <button type="submit">EDIT</button>
+                <?php if(isset($error)){var_dump($error);}?>
+            </form>
+        </div>
+
+         <?php  }?>
     <table>
         <tr>
             <td>IMAGE</td>
@@ -132,26 +213,7 @@
                     <a href='?delete=<?=$product["pid"]?>'><i class="fa-solid fa-trash"></i></a>
                 </td>
                 </tr>
-        <?php  endforeach ; 
-            if (isset($_GET["edit"])) {
-                $stmt = $db->prepare("select * from product where pid = ?") ;
-                $stmt->execute([filter_var($_GET["edit"], FILTER_VALIDATE_INT)]);
-                $product = $stmt->fetch(PDO::FETCH_ASSOC);
-        ?>
-        <div>
-            <form action="" method="post"  enctype="multipart/form-data">
-                <input type="text" name="title" value='<?= isset($title) ? $title : $product["title"]?>'>
-                <input type="text" name="stock" value='<?= isset($stock) ? $stock : $product["stock"]?>'>
-                <input type="text" name="normal_price" value='<?= isset($normal_price) ? $normal_price : $product["normal_price"]?>'>
-                <input type="text" name="discnt_price" value='<?= isset($discnt_price) ? $discnt_price : $product["discnt_price"]?>'>
-                <input type="date" name="expr_date" value='<?= isset($expr_date) ? $expr_date : $product["expr_date"]?>'>
-                <input type="file" name="img">
-                <button type="submit">EDIT</button>
-                <?php if(isset($error)){var_dump($error);}?>
-            </form>
-        </div>
-
-         <?php  }?>
+        <?php endforeach ; ?>
          <tr>
              <td colspan="7">
                 <a href="insert.php"><i class="fa-solid fa-square-plus"></i></a>
