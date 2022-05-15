@@ -24,10 +24,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST"){
         $stmt->execute();
         if ($stmt->rowCount() > 0){
             $_SESSION["message"] = "Account created successfully";
+            mkdir("../images/".getUser($_SESSION["register"]["email"])["mid"]);
             unset($_SESSION["register"]);
             session_destroy();
             setcookie(session_name(), "", 1 , "/");
             header("Location: ../login.php");
+            exit;
         }
         else {
             $_SESSION["message"] = "Account creation failed";
