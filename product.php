@@ -36,7 +36,7 @@
                 }
                 else{
                     if (!isset($error)){
-                        $db->prepare("update product set title = ?, stock = ?, normal_price = ?, discnt_price = ?, expr_date = ? where pid=?")->execute([$title, $stock, $normal_price, $discnt_price, $expr_date, $pid]) ;
+                        $db->prepare("update product set title = ?, stock = ?, normal_price = ?, discnt_price = ?, expr_date = ?, img = 'product.jpeg' where pid=?")->execute([$title, $stock, $normal_price, $discnt_price, $expr_date, $pid]) ;
                         header("Location: product.php");
                         exit;
                     }
@@ -68,7 +68,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="menuStyle.css">
     <style>
         @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css');
 
@@ -166,9 +166,13 @@
         button:hover {
             border-color: black;
         }
+        img {
+            object-fit: cover;
+        }
     </style>
 </head>
 <body>
+    <?php require 'menu_insert.php'; ?>
     <h1>PRODUCTS</h1>
     <?php   
             if (isset($_GET["edit"])) {
@@ -201,7 +205,7 @@
         </tr>
         <?php  foreach( $products as $product) : ?>
             <tr>
-                <td> <img src='./images/<?php if ($product["img"] !== "product.jpeg") echo $product["mid"], "/"; ?><?=$product["img"]?>'></td>
+                <td> <img src='./images/<?php if ($product["img"] !== "product.jpeg" && $product["img"] !== "product.jpg") echo $product["mid"], "/"; ?><?=$product["img"]?>'></td>
                 <td><?=$product["title"]?></td>
                 <td><?=$product["stock"]?></td>
                 <td><?=$product["normal_price"]?></td>

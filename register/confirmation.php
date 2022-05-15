@@ -1,7 +1,9 @@
 <?php
 session_start();
 require '../auth.php';
-var_dump($_SESSION);
+if (validSession()){
+    header("Location: ../index.php");
+}
 if ($_SERVER["REQUEST_METHOD"] === "POST"){
     
     $entered_confirmation_code = filter_var($_POST["confirmation_code"], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -49,11 +51,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST"){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confirmation</title>
+    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        form {
+            display: flex;
+            justify-content: center;
+            margin: 40px auto;
+        }
+    </style>
 </head>
 <body>
     <form action="" method="post">
         <input type="text" name="confirmation_code" placeholder="Confirmation Code">
-        <button type="submit">Confirm</button>
+        <button  type="submit">Confirm</button>
     </form>
 </body>
 </html>

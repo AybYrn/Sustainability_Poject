@@ -20,7 +20,7 @@
                 }
 
                 $product_img = new Upload("product_img", "images/{$_SESSION['user']['mid']}") ;
-                $filename = $product_img->file() ?? "product.jpg" ;
+                $filename = $product_img->file() ?? "product.jpeg" ;
 
                 if (!isset($error)){
                     $stmt = $db->prepare("insert into product (mid, title, stock, normal_price, discnt_price, expr_date, img) values (?, ?, ?, ?, ?, ?, ?)") ;
@@ -40,6 +40,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="menuStyle.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>Document</title>
     <style>
         table{
@@ -166,6 +168,7 @@
     </style>
 </head>
 <body>
+    <?php require 'menu_insert.php'; ?>
     <form action="" method="post"  enctype="multipart/form-data">
         <table>
             <tr>

@@ -75,7 +75,7 @@
     <header>
         <form action="" method="get">
             <div class="q">
-                <input type="text" name="q"> <button><i class="fa-solid fa-magnifying-glass"></i></button>
+                <input type="text" name="q" value="<?= $q ?? "" ?>"> <button><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
         </form>
         <div class="btn">

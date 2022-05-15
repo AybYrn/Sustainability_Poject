@@ -13,17 +13,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abel&display=swap">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="menuStyle.css">
     <title>Edit</title>
     <style>
         * {
             font-family: Abel;
+        }
+        #edit * {
             background-color: #f5f5f5;
         }
-        table{
+        table#edit{
             font-size: 20px;
             margin: 20px auto;
-            width: 700px;
-            height: 800px;
+            width: 400px;
+            /* height: 600px; */
             background: rgb(255, 255, 255);
             border-radius: 0.4em;
             box-shadow: 0.3em 0.3em 0.7em #00000015;
@@ -31,10 +35,10 @@
             border: rgb(250, 250, 250) 0.2em solid;
 
         }
-        table:hover {
+        table#edit:hover {
             border: #006fff 0.2em solid;
         }
-        a{
+        a#tt{
             text-decoration: none;
             margin-top: 10px;
             font-weight: bold;
@@ -72,7 +76,7 @@
         transition: opacity .3s;
         }
         
-        button {
+        button#save {
         --primary-color: #645bff;
         --secondary-color: #fff;
         --hover-color: #111;
@@ -92,7 +96,7 @@
         margin-top: 5px;
         }
 
-        button .arrow-wrapper {
+        button#save .arrow-wrapper {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -100,7 +104,7 @@
 
         }
 
-        button .arrow {
+        button#save .arrow {
         margin-top: 1px;
         background: var(--primary-color);
         height: var(--arrow-stroke);
@@ -108,7 +112,7 @@
         transition: 0.2s;
         }
 
-        button .arrow::before {
+        button#save .arrow::before {
         content: "";
         box-sizing: border-box;
         position: absolute;
@@ -122,33 +126,30 @@
         transform: rotate(-45deg);
         }
 
-        button:hover {
+        button#save:hover {
         background-color: var(--hover-color);
         }
 
-        button:hover .arrow {
+        button#save:hover .arrow {
         background: var(--secondary-color);
         }
 
-        button:hover .arrow:before {
+        button#save:hover .arrow:before {
         right: 0;
+        }
+        td#cancle {
+            text-align: center;
+        }
+        td #save {
+            margin: 2px auto;
         }
     </style>
 </head>
 <body>
-<?php 
-			if(isset($_SESSION['message'])){
-				?>
-				<div class="alert alert-info text-center">
-					<?php echo $_SESSION['message']; ?>
-				</div>
-				<?php
-				unset($_SESSION['message']);
-			}
- 
-			?>
+    
+<?php require 'menu_insert.php' ?>
     <form method="post" action="save_profile.php">
-    <table>
+    <table id="edit">
         <tr><td><p> <b>Email:</b> <?= $user["email"] ?></p></td></tr>
         <tr><td><p> <b>Name:</b> <input type="text" value="<?= $user["name"] ?>" name="name"> </p></td></tr>
         <tr><td><p> <b>City:</b> <input type="text" value="<?= $user["city"] ?> " name="city"></p>  <p> <b>District: </b><input type="text" value="<?= $user["district"] ?>" name="district"></p> </td></tr>
@@ -160,13 +161,24 @@
         if(!empty($user["mid"])){ ?>
             <tr><td><p> <b>Your Market Id is:</b> <?= $user["mid"] ?></p></td></tr>
         <?php } ?>
-        <tr><td><button <?= $_SESSION["message"]="" ?> type="submit" class="btn btn-success" name="save">Save Changes
+        <tr><td><button id="save" <?= $_SESSION["message"]="" ?> type="submit" class="btn btn-success" name="save">Save Changes
         <div class="arrow-wrapper">
                 <div class="arrow"></div>
             </div>
         </button></td>
-        <tr><td><a <?= $_SESSION["message"]="No edit made" ?> href="profile.php">Cancel</a></td></tr>
+        <tr><td id="cancle"><a id="tt" <?= $_SESSION["message"]="No edit made" ?> href="profile.php">Cancel</a></td></tr>
     </table>
     </form>
+    <?php 
+			if(isset($_SESSION['message'])){
+				?>
+				<div class="alert alert-info text-center">
+					<?php echo $_SESSION['message']; ?>
+				</div>
+				<?php
+				unset($_SESSION['message']);
+			}
+ 
+			?>
 </body>
 </html>
